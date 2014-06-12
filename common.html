@@ -179,7 +179,7 @@ if ( ! function_exists('is_really_writable'))
         </div>
 
         <div class='alert alert-danger'>
-          PHP不是包山包海，什麼沒品味的功能都有提供嗎？怎麼這個深入確認的函數卻是要framework自己提供呀。
+          PHP不是包山包海，什麼功能都有提供嗎？怎麼這個深入確認的函數卻是要framework自己提供呀。
         </div>
 
 
@@ -271,7 +271,7 @@ if ( ! function_exists('load_class'))
         <div class='alert alert-danger'>
             用全域函數來逐步載入元件，然後紀錄在另一個全域函數的的靜態變數裡面？<br/>
             我認為這真的超怪異，這應該寫成一個類別吧！<br/>
-            會寫成這樣，是最一開始設計時沒有思考清楚系統該如何抽象化吧。
+            會寫成這樣，我認為是最一開始設計時沒有思考清楚系統該如何抽象化。
         </div>
 
 
@@ -312,7 +312,8 @@ if ( ! function_exists('is_loaded'))
             看到這邊，我個人感覺這像是一大串quick and dirty solution的組合。<br/>
             繼續往下看，你會發現CI真的用了很多全域函數。<br/>
             我認為這是procedural programming的一個徵兆：一堆到處用的全域函數。<br/>
-            這也是很多人批評CI一點也不OOP的一個地方。
+            這也是很多人批評CI一點也不OOP的一個地方。<br/>
+            我個人是覺得獨立function根本不應該有靜態變數。函數還有狀態真的很怪。
         </div>
 
 
@@ -460,11 +461,12 @@ if ( ! function_exists('show_error'))
 </pre>
 
         <div class='alert alert-success'>
-
+            用來顯示錯誤訊息的函數。有了它，在任何地方都可以利用show_error來顯示錯誤、debug也很方便。<br/>
+            少數我覺得全域函數幹得好的地方。
         </div>
 
         <div class='alert alert-danger'>
-
+            注意這個函數跟其他函數有相依性，囧。
         </div>
 
 
@@ -495,11 +497,7 @@ if ( ! function_exists('show_404'))
 </pre>
 
         <div class='alert alert-success'>
-
-        </div>
-
-        <div class='alert alert-danger'>
-
+            跟show_error函數差不多。
         </div>
 
 
@@ -535,13 +533,8 @@ if ( ! function_exists('log_message'))
 </pre>
 
         <div class='alert alert-success'>
-
+            用來log訊息的函數。
         </div>
-
-        <div class='alert alert-danger'>
-
-        </div>
-
 
 <pre class="brush: php">
 
@@ -785,6 +778,11 @@ if ( ! function_exists('html_escape'))
 /* Location: ./system/core/Common.php */
 
         </pre>
+
+        <div class='alert alert-success'>
+            用來強化PHP內建htmlspecialchars函數的函數。<br/>
+            可以轉換整個陣列內的字串。
+        </div>
          
         <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
         <script type="text/javascript">
