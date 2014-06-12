@@ -1,41 +1,4 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-
-        <link rel="stylesheet" href="css/bootstrap.css"> 
-        <link rel="stylesheet" href="css/shCore.css">
-        <link rel="stylesheet" href="css/shThemeDefault.css">
-        <script src="js/shCore.js"></script>
-        <script src="js/shBrushPhp.js"></script>
-  
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <div class='alert alert-success'>
-            我們開始分析Codeigniter.php。<br />
-
-        </div>
-
-        <pre class="brush: php">
-
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -86,22 +49,6 @@
  * ------------------------------------------------------
  */
 	require(BASEPATH.'core/Common.php');
-</pre>
-
-        <div class='alert alert-success'>
-            首先載入整個CI框架會用到的一些全域函式。<br />
-            <a href='common.html'>core/common.php</a>
-            
-        </div>
-
-        <div class='alert alert-danger'>
-            這些全域函式讓CI各個元件能整合在一起，卻也導致各元件彼此不可獨立。<br />
-            （不像Laravel的Eloquent ORM就可以獨立出來使用。）<br />
-            有沒有辦法避免彼此相依這件事呢？
-        </div>
-
-
-<pre class="brush: php">
 
 /*
  * ------------------------------------------------------
@@ -116,16 +63,6 @@
 	{
 		require(APPPATH.'config/constants.php');
 	}
-
-</pre>
-
-        <div class='alert alert-success'>
-            這個地方載入了不同環境下的常數。<br/>
-            注意此處的彈性：可以全部環境共用共一份檔案。
-        </div>
-
-
-<pre class="brush: php">
 
 /*
  * ------------------------------------------------------
@@ -241,34 +178,12 @@
 		$RTR->_set_overrides($routing);
 	}
 
-</pre>
-
-        <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
-        </div>
-
-        <pre class="brush: php">
-
-
 /*
  * ------------------------------------------------------
  *  Instantiate the output class
  * ------------------------------------------------------
  */
 	$OUT =& load_class('Output', 'core');
-
-</pre>
-
-        <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
-        </div>
-
-        <pre class="brush: php">
-
 
 /*
  * ------------------------------------------------------
@@ -290,34 +205,12 @@
  */
 	$SEC =& load_class('Security', 'core');
 
-</pre>
-
-        <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
-        </div>
-
-        <pre class="brush: php">
-
-
 /*
  * ------------------------------------------------------
  *  Load the Input class and sanitize globals
  * ------------------------------------------------------
  */
 	$IN	=& load_class('Input', 'core');
-
-</pre>
-
-        <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
-        </div>
-
-        <pre class="brush: php">
-
 
 /*
  * ------------------------------------------------------
@@ -358,17 +251,6 @@
 
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
-
-</pre>
-
-        <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
-        </div>
-
-        <pre class="brush: php">
-
 
 /*
  * ------------------------------------------------------
@@ -518,25 +400,3 @@
 
 /* End of file CodeIgniter.php */
 /* Location: ./system/core/CodeIgniter.php */
-
-
-        </pre>
-         
-        <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
-        <script type="text/javascript">
-             SyntaxHighlighter.all()
-        </script>
-
-    </body>
-    <style>
-        body{
-            width: 960px;
-            margin: 0 auto;
-            background-color: #444;
-        }
-        .alert{
-            line-height: 2;
-        }
-    
-    </style>
-</html>
