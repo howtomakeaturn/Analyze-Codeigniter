@@ -168,6 +168,23 @@ if ( ! function_exists('is_really_writable'))
 	}
 }
 
+</pre>
+
+        <div class='alert alert-success'>
+        php內建函數is_writable會根據一個檔案的權限判斷是否可寫入。<br/>
+        不幸的，若是php.ini定義了安全模式，is_writable判斷可寫入的未必真的可寫入。<br/>
+        這邊使用了DIRECTORY_SEPARATOR來判斷作業系統。<br/>
+        在Windows作業系統也有一些屬性要判斷，實作比較複雜：<br/>
+        若是資料夾，就試著在裡面建立一個檔案，建立了卻不能讀取就是不可寫入。
+        </div>
+
+        <div class='alert alert-danger'>
+          PHP不是包山包海，什麼沒品味的功能都有提供嗎？怎麼這個深入確認的函數卻是要framework自己提供呀。
+        </div>
+
+
+<pre class="brush: php">
+
 // ------------------------------------------------------------------------
 
 /**
@@ -241,6 +258,26 @@ if ( ! function_exists('load_class'))
 	}
 }
 
+</pre>
+
+        <div class='alert alert-success'>
+        重頭戲來了，CI利用這個函數將幾乎所有核心類別載入。<br/>
+        也正是因為這個函數，你在其他地方幾乎看不到require或是include函數。<br/>
+        注意函數前面有一個&符號，表示pass by reference。<br/>
+        此處用了static靜態變數來做到儲存，並且會呼叫下面的is_load函數紀錄已經載入的類別。
+
+        </div>
+
+        <div class='alert alert-danger'>
+            用全域函數來逐步載入元件，然後紀錄在另一個全域函數的的靜態變數裡面？<br/>
+            我認為這真的超怪異，這應該寫成一個類別吧！<br/>
+            會寫成這樣，是最一開始設計時沒有思考清楚系統該如何抽象化吧。
+        </div>
+
+
+<pre class="brush: php">
+
+
 // --------------------------------------------------------------------
 
 /**
@@ -264,6 +301,22 @@ if ( ! function_exists('is_loaded'))
 		return $_is_loaded;
 	}
 }
+
+</pre>
+
+        <div class='alert alert-success'>
+            這就是剛剛所說，利用靜態變數做紀錄的函數。
+        </div>
+
+        <div class='alert alert-danger'>
+            看到這邊，我個人感覺這像是一大串quick and dirty solution的組合。<br/>
+            繼續往下看，你會發現CI真的用了很多全域函數。<br/>
+            我認為這是procedural programming的一個徵兆：一堆到處用的全域函數。<br/>
+            這也是很多人批評CI一點也不OOP的一個地方。
+        </div>
+
+
+<pre class="brush: php">
 
 // ------------------------------------------------------------------------
 
@@ -323,6 +376,20 @@ if ( ! function_exists('get_config'))
 	}
 }
 
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
+
+
 // ------------------------------------------------------------------------
 
 /**
@@ -352,6 +419,20 @@ if ( ! function_exists('config_item'))
 	}
 }
 
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
+
+
 // ------------------------------------------------------------------------
 
 /**
@@ -376,6 +457,20 @@ if ( ! function_exists('show_error'))
 	}
 }
 
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
+
+
 // ------------------------------------------------------------------------
 
 /**
@@ -397,6 +492,18 @@ if ( ! function_exists('show_404'))
 		exit;
 	}
 }
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
 
 // ------------------------------------------------------------------------
 
@@ -424,6 +531,19 @@ if ( ! function_exists('log_message'))
 		$_log->write_log($level, $message, $php_error);
 	}
 }
+
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
 
 // ------------------------------------------------------------------------
 
@@ -512,6 +632,18 @@ if ( ! function_exists('set_status_header'))
 		}
 	}
 }
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
 
 // --------------------------------------------------------------------
 
@@ -561,6 +693,18 @@ if ( ! function_exists('_exception_handler'))
 		$_error->log_exception($severity, $message, $filepath, $line);
 	}
 }
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
 
 // --------------------------------------------------------------------
 
@@ -600,6 +744,18 @@ if ( ! function_exists('remove_invisible_characters'))
 		return $str;
 	}
 }
+</pre>
+
+        <div class='alert alert-success'>
+
+        </div>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+<pre class="brush: php">
 
 // ------------------------------------------------------------------------
 
