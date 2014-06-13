@@ -139,7 +139,8 @@ class CI_Router {
             我們也在這裡見識到CI的固執。<br/>
             就不能用PHP的require或是include函式嗎？<br/>
             正因為這樣的dependency，CI框架的內部相依性非常強，幾乎沒有元件可以搬出CI框架之外使用。<br/>
-            舉例來說，你也許覺得這個Router類別很讚，但你無法把它拿去放進你自己撰寫的框架。
+            舉例來說，你也許覺得這個Router類別很讚，但你無法把它拿去放進你自己撰寫的框架。<br/>
+            若是用require或是include撰寫，把相關的類別一併搬過去就可以了。
 
         </div>
 
@@ -188,6 +189,17 @@ class CI_Router {
 			}
 		}
 
+</pre>
+
+        <div class='alert alert-success'>
+            CI預設是根據URL區段去呼叫對應的controller跟method，不過它允許你改成query string。<br />
+            例如：index.php?c=controller&m=method會根據c參數呼叫controller、m參數呼叫method。<br/>
+            注意c跟m這兩個只是預設，可以去config.php修改喔！
+        </div>
+
+<pre class="brush: php">
+
+
 		// Load the routes.php file.
 		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
 		{
@@ -200,6 +212,17 @@ class CI_Router {
 
 		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
 		unset($route);
+
+</pre>
+
+        <div class='alert alert-success'>
+            載入routes.php之後，這邊只用一行就確認了$route有被設定並且是陣列。<br/>
+            並且還在例外情況預設了空陣列。
+        </div>
+
+<pre class="brush: php">
+
+
 
 		// Set the default controller so we can display it in the event
 		// the URI doesn't correlated to a valid controller.
@@ -236,10 +259,10 @@ class CI_Router {
 </pre>
 
         <div class='alert alert-success'>
+            這邊執行一些判斷URL與設定controller/method的動作。<br />
+            幾乎都在呼叫URL類別的函式。
         </div>
 
-        <div class='alert alert-danger'>
-        </div>
 
 <pre class="brush: php">
 
