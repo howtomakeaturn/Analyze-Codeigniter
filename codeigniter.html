@@ -193,6 +193,18 @@
  */
 	$EXT->_call_hook('pre_system');
 
+
+</pre>
+
+        <div class='alert alert-success'>
+            載入Hook類別，讓開發者可以在不同時間點執行某些任務，例如：CI載入前、controller執行前、CI執行完畢之後...等等。<br />
+            Hook類別是提供進階開發者使用的，它的存在主要是為了支援<a href='http://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E4%BE%A7%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1' target='_blank'>Aspect-Oriented Programming</a>開發方法。<br/>
+            關於在CI內進行AOP開發，我推薦一篇很棒的文章：<a href='http://www.sitepoint.com/explore-aspect-oriented-programming-with-codeigniter-1/'>Explore Aspect Oriented Programming with CodeIgniter</a>
+
+        </div>
+
+        <pre class="brush: php">
+
 /*
  * ------------------------------------------------------
  *  Instantiate the config class
@@ -244,6 +256,9 @@
 </pre>
 
         <div class='alert alert-success'>
+            這邊載入Router類別，去分析網址以做出對應動作。<br />
+            參考：<a href='router.html'>找到該走的路：core/router.php</a>
+
         </div>
 
         <div class='alert alert-danger'>
