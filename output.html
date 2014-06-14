@@ -181,6 +181,17 @@ class CI_Output {
 		return $this;
 	}
 
+</pre>
+
+        <div class='alert alert-success'>
+            這個set函數最後傳回 $this，這讓函數能夠串接起來使用。<br/>
+            在不需要回傳值的函數，常常可以這麼做。
+        </div>
+
+<pre class="brush: php">
+
+
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -205,6 +216,15 @@ class CI_Output {
 
 		return $this;
 	}
+</pre>
+
+        <div class='alert alert-danger'>
+            注意這個將字串加進output的函數。<br/>
+            我認為if判斷式多餘了，直接 $this->final_output .= $output 即可。
+        </div>
+
+<pre class="brush: php">
+
 
 	// --------------------------------------------------------------------
 
@@ -237,6 +257,20 @@ class CI_Output {
 
 		return $this;
 	}
+
+</pre>
+        <div class='alert alert-success'>
+            本來我只知道，PHP的字串比較，用strcmp比==好。<br />
+            看到這邊才知道，還有strncasecmp跟strncmp函數。
+        </div>
+      
+        <div class='alert alert-danger'>
+            $header是字串、$replace是布林值，這邊卻將他們放進一個陣列，然後再塞進headers變數。<br/>
+            我個人很討厭這種將不同類型變數放進同一個陣列的作法：這代表讀這段code的人要先知道陣列內的順序有特殊意義、而不只是順序，否則將難以理解。<br/>
+        </div>
+
+<pre class="brush: php">
+
 
 	// --------------------------------------------------------------------
 
@@ -290,6 +324,13 @@ class CI_Output {
 		return $this;
 	}
 
+</pre>
+        <div class='alert alert-success'>
+            這邊看得到為了維持與舊版的相容性所留下的痕跡。
+        </div>
+<pre class="brush: php">
+
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -305,6 +346,13 @@ class CI_Output {
 
 		return $this;
 	}
+</pre>
+        <div class='alert alert-success'>
+            一個漂亮的防禦性編程。不是布林值的一律視為TRUE。只用了一行。<br/>
+            不期待回傳值的函數看來全都寫成了回傳 $this。
+        </div>
+<pre class="brush: php">
+
 
 	// --------------------------------------------------------------------
 
@@ -487,6 +535,26 @@ class CI_Output {
 		log_message('debug', "Final output sent to browser");
 		log_message('debug', "Total execution time: ".$elapsed);
 	}
+</pre>
+        <div class='alert alert-success'>
+            整個Output類別的重點，將結果echo給瀏覽器。
+        </div>
+      
+        <div class='alert alert-danger'>
+            有一個用來計算整個CI執行時間的benchmark物件在這裡出現，並計算出整個執行時間。<br/>
+            _display根據名稱應該只負責展示最後結果給瀏覽器，卻多了計算執行時間的動作。<br />
+            我認為這違反了<a href='http://zh.wikipedia.org/wiki/%E5%8D%95%E4%B8%80%E5%8A%9F%E8%83%BD%E5%8E%9F%E5%88%99'>single responsibility principle</a>，增加了維護與理解的難度。<br />
+            不只是函數名稱，整個類別就叫做Output，不應該做展示以外的動作。<br/>
+            硬是為了支援benchmark功能，而將程式碼寫在這裡，我認為是quick and dirty solution。
+        </div>
+        <div class='alert alert-danger'>
+            除此之外，最開始處看到了它需要兩個全域變數$BM與$CFG的支援，並且接著對CI_Controller類別與get_instance全域函數有相依性。<br />
+            事實上，既然都寫成了類別，類別運作所需要的資料應該可以由建構式傳入、或是撰寫某些set函數設定。<br />
+            這邊寫成這樣，我認為是設計缺陷的一種、不夠Object-Oriented Design。<br />
+            看完整個函數，會發現它負責的事情滿雜的、不好理解。這通常暗示了code smell（程式碼臭掉了）。
+        </div>
+
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
