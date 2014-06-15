@@ -274,6 +274,11 @@ if ( ! function_exists('load_class'))
             會寫成這樣，我認為是最一開始設計時沒有思考清楚系統該如何抽象化。
         </div>
 
+        <div class='alert alert-danger'>
+            注意這邊自訂載入函數的一個重大代價：沒辦法在new一個物件時，傳入任何參數（看看倒數幾行的new相關程式碼）。<br/>
+            也就是PHP程式語言為了支援OOP所提供的類別construtor功能，被全面放棄了！
+        </div>
+
 
 <pre class="brush: php">
 

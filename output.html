@@ -657,7 +657,7 @@ class CI_Output {
 </pre>
 
         <div class='alert alert-success'>
-            快取過期後會更新這隻快取檔，所以把檔案設成可寫入。
+            之後會更新這隻快取檔即可，不用再建立一次，所以把檔案設成可寫入。
         </div>
 
   <pre class="brush: php">
@@ -730,6 +730,22 @@ class CI_Output {
 		log_message('debug', "Cache file is current. Sending it to browser.");
 		return TRUE;
 	}
+</pre>
+
+        <div class='alert alert-success'>
+            明明是回傳布林值，怎麼註解會寫return void的呢。滿多地方有這個瑕疵。<br/>
+            
+        </div>
+        <div class='alert alert-danger'>
+              再次為濫用全域變數、全域函數、以及自定義載入功能付出代價。<br/>
+              傳入的參數是(&$CFG, &$URI)，需要取址運算符。<br/>
+              這讓這段code更難理解與維護了，不是嗎？<br/>
+              要傳入config與uri相關參數並不困難，在類別建構時傳入即可，實在沒必要寫這麼醜。<br/>
+              但因為自訂了load_class函數來載入全部類別，導致了現在醜code的結果。<br/>
+              請參見：<a href='common.html'>貫穿全部：core/common.php</a>中，我對於load_class函數的批評。
+        </div>
+
+  <pre class="brush: php">
 
 
 }
@@ -739,12 +755,11 @@ class CI_Output {
 /* Location: ./system/core/Output.php */
           
           </pre>
-        
-
-        <div class='alert alert-success'>
-        </div>
 
         <div class='alert alert-danger'>
+            技術債會導致更多的技術債需要還。<br/>
+            為了配合最一開始load_class這種又髒又快的workaroud寫法，Output類別必須寫出對應的醜寫法。<br/>
+            除此之外，也導致Output類別嚴重相依在CI之下，無法獨立使用。<br/>
         </div>
 
 
