@@ -438,6 +438,24 @@ class CI_Output {
 		{
 			$this->_write_cache($output);
 		}
+    </pre>
+    <div class='alert alert-success'>
+        若是要求CI在controller內cache頁面，會使用<br/>
+        $this->output->cache(1); //tells the CI to cache this page for 1 minute<br/>
+        設定快取時間。所以若是cache_expiration大於零，表示有被要求快取此頁面。
+    </div>
+    <div class='alert alert-success'>
+        controller若是有定義_output函數，則Output類別不會將結果直接echo到瀏覽器，而是丟給_output去處理。<br/>
+        那樣的話，此處不做cache，因為不知道controller拿到資料會接著做什麼修改。<br/>
+    </div>
+    <div class='alert alert-danger'>
+        此_display函數有時是被快取機制所呼叫。那樣的話，便不需要寫入cache。<br/>
+        至於如何得知是被快取機制呼叫？是利用isset($CI)判定全域變數的存在。<br/>
+        我認為這很醜、光看isset($CI)也看不出是在判斷什麼東西。code可讀性很差。<br/>我認為這是濫用全域變數的一個例子。
+    </div>
+    <pre class="brush: php">
+
+
 
 		// --------------------------------------------------------------------
 
@@ -578,6 +596,17 @@ class CI_Output {
 			return;
 		}
 
+</pre>
+
+        <div class='alert alert-success'>
+            檢查cache路徑是否存在、是否能夠寫入。<br/>
+            若是不行，則以log紀錄，並且直接return。<br/>
+        </div>
+
+  <pre class="brush: php">
+
+
+
 		$uri =	$CI->config->item('base_url').
 				$CI->config->item('index_page').
 				$CI->uri->uri_string();
@@ -589,6 +618,15 @@ class CI_Output {
 			log_message('error', "Unable to write cache file: ".$cache_path);
 			return;
 		}
+
+</pre>
+
+        <div class='alert alert-success'>
+            FOPEN_WRITE_CREATE_DESTRUCTIVE只是constants.php裡面的一個自訂常數，不要緊張。
+        </div>
+
+  <pre class="brush: php">
+
 
 		$expire = time() + ($this->cache_expiration * 60);
 
@@ -603,7 +641,27 @@ class CI_Output {
 			return;
 		}
 		fclose($fp);
+
+</pre>
+
+        <div class='alert alert-success'>
+            也許有多個使用者同時瀏覽同一個網頁，如此會導致同時寫入同一個cache檔、cache內容錯亂。<br/>
+            所以這邊用flock的獨占鎖定去佔有檔案，先搶先贏。
+        </div>
+
+  <pre class="brush: php">
+
+
 		@chmod($cache_path, FILE_WRITE_MODE);
+
+</pre>
+
+        <div class='alert alert-success'>
+            快取過期後會更新這隻快取檔，所以把檔案設成可寫入。
+        </div>
+
+  <pre class="brush: php">
+
 
 		log_message('debug', "Cache file written: ".$cache_path);
 	}
