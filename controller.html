@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <link rel="stylesheet" href="css/bootstrap.css"> 
+        <link rel="stylesheet" href="css/shCore.css">
+        <link rel="stylesheet" href="css/shThemeDefault.css">
+        <script src="js/shCore.js"></script>
+        <script src="js/shBrushPhp.js"></script>
+  
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div class='alert alert-success'>
+            我們開始分析core/Controller.php。<br/>
+              在開發application時，在model、controller等地方會寫到的$this就是繼承這個本體物件。<br/>
+              甚至在撰寫library時，常常為了使用ci本身的helper、model等功能，寫出 $this->ci =& get_instance() 這樣的程式碼。<br/>
+            
+        </div>
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package		CodeIgniter
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
+ * @link		http://codeigniter.com
+ * @since		Version 1.0
+ * @filesource
+ */
+
+// ------------------------------------------------------------------------
+
+/**
+ * CodeIgniter Application Controller Class
+ *
+ * This class object is the super class that every library in
+ * CodeIgniter will be assigned to.
+ *
+ * @package		CodeIgniter
+ * @subpackage	Libraries
+ * @category	Libraries
+ * @author		ExpressionEngine Dev Team
+ * @link		http://codeigniter.com/user_guide/general/controllers.html
+ */
+class CI_Controller {
+
+	private static $instance;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		self::$instance =& $this;
+		
+		// Assign all the class objects that were instantiated by the
+		// bootstrap file (CodeIgniter.php) to local class variables
+		// so that CI can run as one big super object.
+		foreach (is_loaded() as $var => $class)
+		{
+			$this->$var =& load_class($class);
+		}
+    </pre>
+        <div class='alert alert-success'>
+            將之前載入的類別全部與這個物件接在一起。<br/>
+            開發者因而可以使用$this->router、$this->uri、$this->config等成員變數。<br/>
+            不過，開發者想要繼續用$RTR =& load_class('Router', 'core')以及$URI =& load_class('URI', 'core')這種寫法，也是可以啦。
+        </div>
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+    
+    
+
+		$this->load =& load_class('Loader', 'core');
+
+		$this->load->initialize();
+		
+		log_message('debug', "Controller Class Initialized");
+	}
+    </pre>
+        <div class='alert alert-success'>
+            最後載入Loader類別，開發者讀取model、library、helper等類別都靠它。<br/>
+            參見：<a href='loader.html'>統一的載入介面：core/Loader.php</a>
+        </div>
+        <div class='alert alert-danger'>
+            那一行$this->load->initialize()很莫名其妙。前面用load_class載入類別，並不會在之後呼叫任何初始化函數，而是直接寫在建構式內。<br/>
+            這邊卻是在Loader類別的建構式執行一些動作，之後呼叫initialize再執行一些動作。<br/>
+            也就是說「load_class」到底是純粹載入類別？還是載入的同時順便執行初始工作？<br/>
+            可說是多此一舉，並且意義不一致。<br/>
+        </div>
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+
+
+	public static function &get_instance()
+	{
+		return self::$instance;
+	}
+}
+// END Controller class
+
+/* End of file Controller.php */
+/* Location: ./system/core/Controller.php */
+
+          
+          </pre>
+
+        <div class='alert alert-danger'>
+
+        </div>
+
+
+        
+         
+        <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+        </script>
+
+    </body>
+    <style>
+        body{
+            width: 960px;
+            margin: 0 auto;
+            background-color: #444;
+        }
+        .alert{
+            line-height: 2;
+        }
+    
+    </style>
+</html>

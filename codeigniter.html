@@ -330,9 +330,8 @@
 </pre>
 
         <div class='alert alert-success'>
-        </div>
-
-        <div class='alert alert-danger'>
+            讀取Input類別。在這邊執行建構式的同時，也對PHP的$_GET等變數進行了「消毒」。<br/>
+            參見<a href='input.html'>資訊安全護城河：core/Input.php</a>          
         </div>
 
         <pre class="brush: php">
@@ -381,9 +380,15 @@
 </pre>
 
         <div class='alert alert-success'>
+              載入controller類別，接著定義一個全域函數，可以接觸ci本體物件。<br/>
+              在開發application時，在model、controller等地方會寫到的$this就是繼承這個本體物件。<br/>
+              甚至在撰寫library時，常常為了使用ci本身的helper、model等功能，寫出 $this->ci =& get_instance() 這樣的程式碼。<br/>
+              參見：<a href='controller.html'>組裝在一起：core/Controller.php</a>
         </div>
 
         <div class='alert alert-danger'>
+            在core資料夾的類別，幾乎都是用load_class全域函數載入，這邊卻是用require與include。<br/>
+            載入各個類別的機制顯得很混亂。
         </div>
 
         <pre class="brush: php">
