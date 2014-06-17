@@ -191,6 +191,15 @@ class CI_Loader {
 
 		return $this;
 	}
+</pre>
+
+        <div class='alert alert-danger'>
+            這些東西寫在__construct就好了，多寫個initialize是畫蛇添足？
+        </div>
+
+<pre class="brush: php">
+
+
 
 	// --------------------------------------------------------------------
 
@@ -253,6 +262,14 @@ class CI_Loader {
 
 		$this->_ci_load_class($library, $params, $object_name);
 	}
+</pre>
+
+        <div class='alert alert-success'>
+        </div>
+        <div class='alert alert-danger'>
+        </div>
+
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
@@ -293,7 +310,15 @@ class CI_Loader {
 			// And the model name behind it
 			$model = substr($model, $last_slash + 1);
 		}
+</pre>
 
+        <div class='alert alert-success'>
+            注意這邊，並不是strpos函數，是strrpos函數。差了一個r。<br/>
+            前者找第一次出現位置，後者找最後一次出現位置。<br/>
+            PHP這個語言真的太胡搞了。
+        </div>
+
+<pre class="brush: php">
 		if ($name == '')
 		{
 			$name = $model;
@@ -309,6 +334,15 @@ class CI_Loader {
 		{
 			show_error('The model name you are loading is the name of a resource that is already being used: '.$name);
 		}
+
+</pre>
+
+        <div class='alert alert-success'>
+            在core/controller.php的建構式內，有將一堆載入的類別塞給controller物件的成員變數。<br/>
+            由於接下來會將$name塞給同樣的全域物件，所以這邊要進行defense。
+        </div>
+
+<pre class="brush: php">
 
 		$model = strtolower($model);
 
@@ -347,6 +381,28 @@ class CI_Loader {
 		// couldn't find the model
 		show_error('Unable to locate the model you have specified: '.$model);
 	}
+</pre>
+
+        <div class='alert alert-danger'>
+            注意看這段讀取model的程式碼。<br/>
+            不覺得它很難理解嗎？<br/>
+            明明只是載入類別而已。<br/>
+            當發現code很難讀的時候，不要急著擔心自己不夠強。<br/>
+            因為，可能是寫下這段code的人不夠強。我下面告訴你為什麼，光是foreach就很醜。
+        </div>
+
+        <div class='alert alert-danger'>
+            這個載入model方法的第三個參數$db_conn是用來決定連接資料庫的方式。<br/>
+            是只執行一次的動作，卻寫在foreach內，瑕疵啊，也讓code更難理解。
+
+        </div>
+
+        <div class='alert alert-danger'>
+            CI_Model存在與否不應該在foreach內檢查。同上，它應該是只執行一次的動作。
+        </div>
+
+
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
