@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <link rel="stylesheet" href="css/bootstrap.css"> 
+        <link rel="stylesheet" href="css/shCore.css">
+        <link rel="stylesheet" href="css/shThemeDefault.css">
+        <script src="js/shCore.js"></script>
+        <script src="js/shBrushPhp.js"></script>
+  
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div class='alert alert-success'>
+            我們開始分析core/Model.php。<br/>            
+        </div>
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package		CodeIgniter
+ * @author		ExpressionEngine Dev Team
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @license		http://codeigniter.com/user_guide/license.html
+ * @link		http://codeigniter.com
+ * @since		Version 1.0
+ * @filesource
+ */
+
+// ------------------------------------------------------------------------
+
+/**
+ * CodeIgniter Model Class
+ *
+ * @package		CodeIgniter
+ * @subpackage	Libraries
+ * @category	Libraries
+ * @author		ExpressionEngine Dev Team
+ * @link		http://codeigniter.com/user_guide/libraries/config.html
+ */
+class CI_Model {
+
+	/**
+	 * Constructor
+	 *
+	 * @access public
+	 */
+	function __construct()
+	{
+		log_message('debug', "Model Class Initialized");
+	}
+
+	/**
+	 * __get
+	 *
+	 * Allows models to access CI's loaded classes using the same
+	 * syntax as controllers.
+	 *
+	 * @param	string
+	 * @access private
+	 */
+	function __get($key)
+	{
+		$CI =& get_instance();
+		return $CI->$key;
+	}
+}
+// END Model Class
+
+/* End of file Model.php */
+/* Location: ./system/core/Model.php */
+          </pre>
+
+        <div class='alert alert-success'>
+            這個讓使用者開發Model所繼承的類別，什麼功能都沒有提供。<br/>
+            只定義一個__get魔法函式，在找不到類別property時，去controller全域實體物件尋找。<br/>
+        </div>
+
+
+        
+         
+        <!-- Finally, to actually run the highlighter, you need to include this JS on your page -->
+        <script type="text/javascript">
+             SyntaxHighlighter.all()
+        </script>
+
+    </body>
+    <style>
+        body{
+            width: 960px;
+            margin: 0 auto;
+            background-color: #444;
+        }
+        .alert{
+            line-height: 2;
+        }
+    
+    </style>
+</html>
