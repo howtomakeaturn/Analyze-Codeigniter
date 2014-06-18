@@ -35,7 +35,6 @@
 
         <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
         <pre class="brush: php">
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -107,6 +106,13 @@ class CI_DB_driver {
 	var $curs_id;
 	var $limit_used;
 
+</pre>
+    <div class='alert alert-success'>
+        以底線開頭代表private變數。其實PHP有private可以宣告呀。<br/>
+        所以是很久以前寫的code嗎。
+    </div>
+<pre class="brush: php">
+
 
 
 	/**
@@ -127,6 +133,12 @@ class CI_DB_driver {
 
 		log_message('debug', 'Database Driver Class Initialized');
 	}
+</pre>
+    <div class='alert alert-success'>
+        傳入資料庫設定的陣列給建構式，它會將類別開頭那一大堆變數替換掉。<br/>
+        注意這個動態指定成員變數的技法。
+    </div>
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
@@ -145,6 +157,11 @@ class CI_DB_driver {
 		{
 			return TRUE;
 		}
+</pre>
+    <div class='alert alert-danger'>
+        正要開始初始化，哪會已經有連線存在？多餘的一段code。
+    </div>
+<pre class="brush: php">
 
 		// ----------------------------------------------------------------
 
@@ -162,6 +179,17 @@ class CI_DB_driver {
 			}
 			return FALSE;
 		}
+
+</pre>
+    <div class='alert alert-success'>
+        pconnect的p是指persistent。第一行在決定要不要用persistent連線。<br/>
+        請參見：<br/>
+        <a href='http://php.net/manual/en/features.persistent-connections.php'>Persistent Database Connections</a><br/>
+        <a href='http://stackoverflow.com/questions/1830830/advantages-disadvantages-of-pconnect-option-in-codeigniter'>Advantages / Disadvantages of pconnect option in CodeIgniter</a>
+    </div>
+
+<pre class="brush: php">
+
 
 		// ----------------------------------------------------------------
 
@@ -189,9 +217,26 @@ class CI_DB_driver {
 				return TRUE;
 			}
 		}
+    </pre>
+        <div class='alert alert-danger'>
+            最外層那個if是多餘的。$this->database是空字串又怎樣，並沒有進行處理呀。
+        </div>
+        <div class='alert alert-danger'>
+            針對錯誤的處理有矛盾。無法連線資料庫會先display_error再return FALSE，無法設定字元卻是直接return FALSE、不報錯。<br/>
+            究竟要嚴厲，還是要寬容呢？應該要選一個。
+        </div>
+
+        <pre class="brush: php">
+
 
 		return TRUE;
 	}
+</pre>
+    <div class='alert alert-danger'>
+        註解寫這是給建構式呼叫的函數。結果建構式內沒呼叫他，是更外面在呼叫。<br/>
+        其實這串code寫在建構式就好了。建構式(__construct)就是進行初始化(initialize)的意思啊。
+    </div>
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
@@ -219,6 +264,14 @@ class CI_DB_driver {
 
 		return TRUE;
 	}
+</pre>
+
+        <div class='alert alert-danger'>
+            對不起我錯了，我收回上面的批評。原來是在這裡處理報錯。
+        </div>
+
+<pre class="brush: php">
+
 
 	// --------------------------------------------------------------------
 
@@ -267,6 +320,16 @@ class CI_DB_driver {
 			return $query->row('ver');
 		}
 	}
+</pre>
+
+    <div class='alert alert-danger'>
+        那個_version函式的命名不好。未必會回傳版本數字，可能是一串查詢字。
+    </div>
+    <div class='alert alert-danger'>
+        錯誤處理機制與前面不一致。前面哪有把display_error的結果return？
+    </div>
+
+<pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
