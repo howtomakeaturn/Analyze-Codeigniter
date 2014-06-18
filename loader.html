@@ -439,6 +439,17 @@ class CI_Loader {
 		// Load the DB class
 		$CI->db =& DB($params, $active_record);
 	}
+</pre>
+
+        <div class='alert alert-success'>
+            載入DB.php。<br/>
+            注意，DB是一個函數，而非類別。真正的CI_DB類別會定義在函數內。<br/>
+            詳細請見：<a href='db.html'>資料庫介面的入口：database/DB.php</a>。
+        </div>
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+
 
 	// --------------------------------------------------------------------
 
