@@ -200,6 +200,10 @@ function &DB($params = '', $active_record_override = NULL)
         第二個參數$active_record_override會決定是否要啟用active record功能。<br/>
         CI_DB_active_record類別也是去繼承CI_DB_driver。<br/>
         所謂開啟與否就是看CI_DB是否要直接繼承CI_DB_driver。<br/>
+        參見：<br/>
+        <a href='db_driver.html'>資料庫基本介面：database/DB_driver.php</a><br/>          
+        <a href='db_active_rec.html'>資料庫擴充介面：database/DB_active_rec.php</a>
+        
     </div>
     <div class='alert alert-danger'>
         為了達到「預設開啟active record」的效果，$active_record_override預設是NULL，接著進行一串判斷。<br/>
