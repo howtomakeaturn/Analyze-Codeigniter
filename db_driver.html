@@ -218,8 +218,9 @@ class CI_DB_driver {
 			}
 		}
     </pre>
-        <div class='alert alert-danger'>
-            最外層那個if是多餘的。$this->database是空字串又怎樣，並沒有進行處理呀。
+        <div class='alert alert-success'>
+            若是autoinit為TRUE，而database卻沒有指定的話，邏輯上是會出錯的（詳見config檔）。<br/>
+            最外層那個if保護了這件事，讓暫時沒有使用database的application可以順利運作。<br/>
         </div>
         <div class='alert alert-danger'>
             針對錯誤的處理有矛盾。無法連線資料庫會先display_error再return FALSE，無法設定字元卻是直接return FALSE、不報錯。<br/>
@@ -232,9 +233,9 @@ class CI_DB_driver {
 		return TRUE;
 	}
 </pre>
-    <div class='alert alert-danger'>
+    <div class='alert alert-success'>
         註解寫這是給建構式呼叫的函數。結果建構式內沒呼叫他，是更外面在呼叫。<br/>
-        其實這串code寫在建構式就好了。建構式(__construct)就是進行初始化(initialize)的意思啊。
+        要連結資料庫時會呼叫這個函數。
     </div>
 <pre class="brush: php">
 
@@ -267,7 +268,7 @@ class CI_DB_driver {
 </pre>
 
         <div class='alert alert-danger'>
-            對不起我錯了，我收回上面的批評。原來是在這裡處理報錯。
+            上面的批評是個誤會。原來是在這裡處理報錯。
         </div>
 
 <pre class="brush: php">
