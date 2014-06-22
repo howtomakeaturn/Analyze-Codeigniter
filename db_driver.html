@@ -1515,6 +1515,15 @@ class CI_DB_driver {
 	{
 	}
 
+    </pre>
+        <div class='alert alert-danger'>
+            空的函數，專門給子類別繼承去實作？<br/>
+            聽起來是abstract在做的事。<br/>
+            寫成abstract protected function _reset_select()會更好。
+        </div>
+    <pre class="brush: php">
+
+
 }
 
 /* End of file DB_driver.php */
@@ -1522,9 +1531,6 @@ class CI_DB_driver {
 
           </pre>
 
-        <div class='alert alert-success'>
-            動態挑選driver類別，接著進行初始化。最後將這個driver實體回傳。
-        </div>
 
 
         
