@@ -244,6 +244,17 @@ class CI_Security {
 		return $this;
 	}
 
+</pre>
+        <div class='alert alert-success'>
+            將CSRF機制的hash token存進cookie內。<br/>
+            注意cookie在HTTPS之下會有額外的檢查，詳細可見：<br/>
+            <a href='http://stackoverflow.com/questions/2163828/reading-cookies-via-https-that-were-set-using-http'>http://stackoverflow.com/questions/2163828/reading-cookies-via-https-that-were-set-using-http</a>
+          
+        </div>
+
+        <pre class="brush: php">
+
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -255,6 +266,13 @@ class CI_Security {
 	{
 		show_error('The action you have requested is not allowed.');
 	}
+</pre>  
+        <div class='alert alert-success'>
+            將錯誤訊息包成一個函數。需要修改訊息內容可以統一修改。
+        </div>
+
+
+        <pre class="brush: php">
 
 	// --------------------------------------------------------------------
 
@@ -919,6 +937,18 @@ class CI_Security {
 
 		return $this->_csrf_hash;
 	}
+    </pre>
+  
+        <div class='alert alert-success'>
+            CSRF防禦所比對token的內容。只是用md5函數與rand函數產生的亂數。<br/>
+            同一個頁面可能有多個表單，所以若是token的cookie有被設定，並且token內容是一個長度32的16進位字串（那串[0-9a-f]{32}正規表示就是在檢查這個），則不再重新產生。
+        </div>
+        <div class='alert alert-success'>
+            注意這個函數的重點在set而不是get，雖然有多個return敘述，但return的內容都是先設定再回傳。<br/>
+            查閱類別內呼叫這個函數的地方，都沒有使用變數紀錄函數的回傳值。
+        </div>
+
+    <pre class="brush: php">
 
 }
 
