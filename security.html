@@ -206,6 +206,19 @@ class CI_Security {
 
 		return $this;
 	}
+</pre>  
+        <div class='alert alert-success'>
+            防禦CSRF攻擊的驗證程序。主要就是檢查由表單產生的token是否有一併被傳送過來，並檢查是否正確。<br/>
+            這個token是由form_helper的form_open函數產生。<br/>
+            詳細可以看：<br/>
+            <a href='http://stackoverflow.com/questions/6244669/codeigniter-csrf-how-does-it-work'>http://stackoverflow.com/questions/6244669/codeigniter-csrf-how-does-it-work</a><br/>
+            <a href='http://www.beheist.com/index.php/en/blog/csrf-protection-in-codeigniter-2-0-a-closer-look'>http://www.beheist.com/index.php/en/blog/csrf-protection-in-codeigniter-2-0-a-closer-look</a>
+        </div>
+
+
+        <!-- You also need to add some content to highlight, but that is covered elsewhere. -->
+        <pre class="brush: php">
+  
 
 	// --------------------------------------------------------------------
 
